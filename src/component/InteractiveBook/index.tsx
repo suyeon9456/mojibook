@@ -27,20 +27,9 @@ const InteractiveBook = () => {
                 onMouseMove={handleMouseMove}
             >
                 {/* Book back cover */}
-                <motion.div
-                    className="absolute inset-0 rounded-sm bg-yellow-300 z-0"
-                    style={{
-                        filter: 'brightness(0.8)',
-                        transform: 'translate3d(0px, 0px, -50px)',
-                        transformOrigin: '50% 50%',
-                        transformStyle: 'preserve-3d',
-                    }}
-                />
+                <motion.div className="absolute inset-0 rounded-sm bg-yellow-300 z-0 brightness-80 translate-z-[-50px] origin-center [transform-style:preserve-3d]" />
                 {/* Book inner */}
-                <div
-                    className="absolute inset-0 translate-x-[134px] translate-y-[8px] translate-z-[-44px] w-[252px] h-full bg-yellow-100 rounded-[2%] shadow-inner"
-                    style={{ transformStyle: 'preserve-3d' }}
-                />
+                <div className="absolute inset-0 translate-x-[134px] translate-y-[8px] translate-z-[-44px] w-[252px] h-full bg-yellow-100 rounded-[2%] shadow-inner [transform-style:preserve-3d]" />
                 {/* Book cover */}
                 <motion.div
                     className="absolute inset-0 bg-yellow-300 rounded-sm origin-left"
