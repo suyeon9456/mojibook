@@ -1,8 +1,27 @@
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { useCallback } from 'react';
 
 const InteractiveBook = () => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const rotateX = useTransform(y, [-0.5, 0.5], [15, -15]);
+    const rotateY = useTransform(x, [-0.5, 0.5], [-15, 15]);
+
+    const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const offsetX = (e.clientX - rect.left) / rect.width - 0.5;
+        const offsetY = (e.clientY - rect.top) / rect.height - 0.5;
+        x.set(offsetX);
+        y.set(offsetY);
+    }, []);
+
     return (
-        <motion.div className="relative w-[400px] h-[500px] cursor-pointer flex items-center justify-center my-auto">
+        <motion.div
+            className="relative w-[400px] h-[500px] cursor-pointer flex items-center justify-center my-auto"
+            style={{ rotateX, rotateY }}
+            onMouseMove={handleMouseMove}
+        >
             {/* Book pages */}
             <motion.div
                 className="absolute inset-0 rounded-[3.9%_/_3.1%] bg-yellow-300 z-0"
