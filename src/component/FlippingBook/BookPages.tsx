@@ -1,11 +1,34 @@
 import { motion } from 'framer-motion';
 
+interface BookPagesProps {
+    pages: number[];
+    handleAnimationComplete: (index: number) => void;
+}
+
+const BookPages = ({ pages, handleAnimationComplete }: BookPagesProps) => {
+    return (
+        <>
+            {pages.map((_, index) => (
+                <BookPage
+                    key={index}
+                    index={index}
+                    totalPages={pages.length}
+                    message={''}
+                    onAnimationComplete={() => handleAnimationComplete(index)}
+                />
+            ))}
+        </>
+    );
+};
+
 interface BookPageProps {
     index: number;
     totalPages: number;
+    message: string;
+    onAnimationComplete: () => void;
 }
 
-const BookPage = ({ index, totalPages }: BookPageProps) => {
+const BookPage = ({ index, totalPages, message, onAnimationComplete }: BookPageProps) => {
     return (
         <>
             <motion.div className="flipping-page" initial={{ rotateY: 0 }} />
@@ -24,6 +47,7 @@ const BookPage = ({ index, totalPages }: BookPageProps) => {
                     delay: index * 0.1,
                     ease: 'easeInOut',
                 }}
+                onAnimationComplete={onAnimationComplete}
             >
                 <div className="bg-white" />
                 <div
@@ -38,4 +62,4 @@ const BookPage = ({ index, totalPages }: BookPageProps) => {
     );
 };
 
-export default BookPage;
+export default BookPages;

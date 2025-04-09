@@ -1,16 +1,13 @@
-import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
-import { mojiMessageQueryKey } from '@/utils/queryKeyFactory';
-import { getMojiMessage } from '@/remotes/chat-direct';
+import { useMutation, UseMutationResult } from '@tanstack/react-query';
+import { fetchMojiMessage } from '@/remotes/chat-direct';
 
-const useMojiMessage = () => {
-    const { data: messages } = useSuspenseQuery(getMojiMessageQueryKeys());
-    return { messages };
-};
+type MojiMessageResponse = string;
 
-const getMojiMessageQueryKeys = () =>
-    queryOptions<string>({
-        queryKey: mojiMessageQueryKey.base,
-        queryFn: () => getMojiMessage(),
+const useMojiMessage = (): UseMutationResult<MojiMessageResponse, Error, void, unknown> => {
+    const mutationResult = useMutation<MojiMessageResponse, Error, void>({
+        mutationFn: fetchMojiMessage,
     });
+    return mutationResult;
+};
 
 export default useMojiMessage;
