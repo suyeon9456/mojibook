@@ -1,10 +1,10 @@
 'use client';
 import { motion } from 'framer-motion';
-import BookCoverInner from './BookCoverInner';
+import BookCoverInner from '@/component/Book/BookCoverInner';
 import { useCallback, useMemo, useState } from 'react';
 import useMojiMessage from '@/app/hooks/api/useMojiMessage';
-import BookPages from './BookPages';
-import BookZoomed from './BookZoomed';
+import BookPages from '@/component/Book/BookPages';
+import BookZoomed from '@/component/Book/BookZoomed';
 
 const FlippingBook = () => {
     const [currentStep, setCurrentStep] = useState<'closed' | 'zoomed'>('closed');
