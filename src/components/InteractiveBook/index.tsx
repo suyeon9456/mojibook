@@ -4,8 +4,11 @@ import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useCallback, useState } from 'react';
 import Book from '../common/Book';
 import InteractionIndicator from '../common/InteractionIndicator';
+import { useMediaQuery } from 'react-responsive';
+import classNames from 'classnames';
 
 const InteractiveBook = ({ handleBookClick }: { handleBookClick: () => void }) => {
+    const isSmallScreen = useMediaQuery({ maxWidth: 768 });
     const x = useMotionValue(0);
     const y = useMotionValue(0);
     const [isHovering, setIsHovering] = useState(false);
@@ -27,7 +30,10 @@ const InteractiveBook = ({ handleBookClick }: { handleBookClick: () => void }) =
     return (
         <div style={{ perspective: '1200px' }}>
             <motion.div
-                className="relative w-[400px] h-[500px] cursor-pointer flex items-center justify-center my-auto"
+                className={classNames(
+                    'w-[400px] h-[500px] relative cursor-pointer flex items-center justify-center my-auto',
+                    isSmallScreen ? 'scale-60' : 'scale-80',
+                )}
                 style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
                 onMouseMove={handleMouseMove}
                 onClick={handleBookClick}
