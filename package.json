@@ -11,10 +11,12 @@
     "dependencies": {
         "@tanstack/react-query": "^5.72.0",
         "axios": "^1.8.4",
+        "classnames": "^2.5.1",
         "framer-motion": "^12.6.3",
         "next": "15.2.4",
         "react": "^19.0.0",
-        "react-dom": "^19.0.0"
+        "react-dom": "^19.0.0",
+        "react-responsive": "^10.0.1"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3",

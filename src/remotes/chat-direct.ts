@@ -1,18 +1,10 @@
 import { OpenAPI } from '@/models/chat-direct';
-import axios from 'axios';
+import apiClient from '@/lib/axios';
 
-export const getMojiMessage = async (): Promise<string> => {
-    const { data } = await axios.post<OpenAPI>(
-        '/api/chat-direct',
-        {
-            prompt: '모지 응답!',
-        },
-        {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        },
-    );
+export const fetchMojiMessage = async (): Promise<string> => {
+    const { data } = await apiClient.post<OpenAPI>('/chat-direct', {
+        prompt: '모지 응답!',
+    });
     const message = data.choices?.[0]?.message?.content || JSON.stringify(data);
     return message;
 };
