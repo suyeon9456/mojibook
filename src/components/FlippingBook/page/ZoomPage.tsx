@@ -20,7 +20,12 @@ const ZoomPage = ({ message }: ZoomPageProps) => {
                 boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
             }}
         >
-            <h2 className={classNames(isSmallScreen ? 'w-[100vw] text-lg px-[60px]' : 'text-lg')}>
+            <h2
+                className={classNames(
+                    'text-center',
+                    isSmallScreen ? 'w-[100vw] text-lg px-[60px]' : 'text-lg',
+                )}
+            >
                 {message}
             </h2>
         </motion.div>
