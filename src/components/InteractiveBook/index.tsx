@@ -4,8 +4,17 @@ import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useCallback, useState } from 'react';
 import Book from '../common/Book';
 import InteractionIndicator from '../common/InteractionIndicator';
+import { useMediaQuery } from 'react-responsive';
+import classNames from 'classnames';
 
-const InteractiveBook = ({ handleBookClick }: { handleBookClick: () => void }) => {
+const InteractiveBook = ({
+    handleBookClick,
+    isMobile,
+}: {
+    handleBookClick: () => void;
+    isMobile: boolean;
+}) => {
+    const isSmallScreen = useMediaQuery({ maxWidth: 768 });
     const x = useMotionValue(0);
     const y = useMotionValue(0);
     const [isHovering, setIsHovering] = useState(false);
@@ -27,12 +36,24 @@ const InteractiveBook = ({ handleBookClick }: { handleBookClick: () => void }) =
     return (
         <div style={{ perspective: '1200px' }}>
             <motion.div
-                className="relative w-[400px] h-[500px] cursor-pointer flex items-center justify-center my-auto"
-                style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-                onMouseMove={handleMouseMove}
+                className={classNames(
+                    'w-[400px] h-[500px] relative cursor-pointer flex items-center justify-center my-auto',
+                    isSmallScreen ? 'scale-60' : 'scale-80',
+                )}
                 onClick={handleBookClick}
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
+                {...(isSmallScreen
+                    ? {}
+                    : { style: { rotateX, rotateY, transformStyle: 'preserve-3d' } })}
+                {...(isMobile
+                    ? {
+                          onTouchStart: () => setIsHovering(true),
+                          onTouchEnd: () => setIsHovering(false),
+                      }
+                    : {
+                          onMouseMove: handleMouseMove,
+                          onMouseEnter: () => setIsHovering(true),
+                          onMouseLeave: () => setIsHovering(false),
+                      })}
             >
                 <Book />
                 <InteractionIndicator show={isHovering} />
