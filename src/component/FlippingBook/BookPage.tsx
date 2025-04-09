@@ -8,12 +8,9 @@ interface BookPageProps {
 const BookPage = ({ index, totalPages }: BookPageProps) => {
     return (
         <>
+            <motion.div className="flipping-page" initial={{ rotateY: 0 }} />
             <motion.div
-                className="absolute top-2 left-[404px] w-[380px] h-[480px] bg-white flex items-center justify-center backface-visibility-hidden rounded-sm"
-                initial={{ rotateY: 0 }}
-            />
-            <motion.div
-                className="absolute top-2 left-[404px] w-[380px] h-[480px] bg-white flex items-center justify-center backface-visibility-hidden rounded-sm"
+                className="flipping-page"
                 key={index}
                 style={{
                     zIndex: totalPages - index,
