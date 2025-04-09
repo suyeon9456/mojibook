@@ -1,12 +1,14 @@
 'use client';
 
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import Book from '../common/Book';
+import InteractionIndicator from '../common/InteractionIndicator';
 
 const InteractiveBook = ({ handleBookClick }: { handleBookClick: () => void }) => {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
+    const [isHovering, setIsHovering] = useState(false);
 
     const rotateX = useTransform(y, [-0.5, 0.5], [15, -50]);
     const rotateY = useTransform(x, [-0.5, 0.5], [-50, 15]);
@@ -29,8 +31,11 @@ const InteractiveBook = ({ handleBookClick }: { handleBookClick: () => void }) =
                 style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
                 onMouseMove={handleMouseMove}
                 onClick={handleBookClick}
+                onMouseEnter={() => setIsHovering(true)}
+                onMouseLeave={() => setIsHovering(false)}
             >
                 <Book />
+                <InteractionIndicator show={isHovering} />
             </motion.div>
         </div>
     );
