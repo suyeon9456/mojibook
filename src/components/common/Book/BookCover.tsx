@@ -10,16 +10,18 @@ export const BookCoverOuter = () => {
                 }}
             >
                 <div className="inset-0 flex flex-col justify-between p-10 pl-16">
-                    <h3 className="text-black text-lg font-semibold leading-tight">MOJI BOOK</h3>
-                    <p className="text-black text-sm opacity-70">yeonfuzoom</p>
+                    <h3 className="text-black text-[36px] font-semibold leading-tight">
+                        MOJI BOOK
+                    </h3>
+                    <p className="text-black text-sm opacity-70 font-semibold">yeonfuzoom</p>
                 </div>
 
                 <div
                     className="absolute inset-0 mix-blend-multiply opacity-30 rounded-sm"
                     style={{
-                        backgroundImage: `radial-gradient(rgba(0,0,0,0.15) 1px, transparent 0.5px), url('/images/geometric.svg')`,
+                        backgroundImage: `radial-gradient(rgba(0,0,0,0.15) 1px, transparent 0.5px), url('/images/ellipse.svg')`,
                         backgroundSize: `8px 8px, auto`,
-                        backgroundPosition: `0 0, center 240px`,
+                        backgroundPosition: `0px 0px, 120px 340px`,
                         backgroundRepeat: `repeat, no-repeat`,
                     }}
                 />

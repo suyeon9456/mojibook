@@ -38,7 +38,9 @@ const InteractiveBook = ({
             <motion.div
                 className={classNames(
                     'w-[400px] h-[500px] relative cursor-pointer flex items-center justify-center my-auto',
-                    isSmallScreen ? 'scale-60' : 'scale-80',
+                    isSmallScreen
+                        ? 'scale-60 active:scale-65 transition-transform duration-150'
+                        : 'scale-80',
                 )}
                 onClick={handleBookClick}
                 {...(isSmallScreen
