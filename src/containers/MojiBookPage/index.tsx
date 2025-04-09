@@ -5,7 +5,7 @@ import useMojiMessage from '@/app/hooks/api/useMojiMessage';
 import InteractiveBook from '@/components/InteractiveBook';
 import FlippingBook from '@/components/FlippingBook';
 
-const MojiBook = () => {
+const MojiBook = ({ isMobile }: { isMobile: boolean }) => {
     const { mutateAsync: getMojiMessage, data: message } = useMojiMessage();
     const [bookOpen, setBookOpen] = useState(false);
 
@@ -18,7 +18,7 @@ const MojiBook = () => {
             {bookOpen ? (
                 <FlippingBook getMojiMessage={getMojiMessage} message={message ?? ''} />
             ) : (
-                <InteractiveBook handleBookClick={handleBookClick} />
+                <InteractiveBook handleBookClick={handleBookClick} isMobile={isMobile} />
             )}
         </div>
     );
