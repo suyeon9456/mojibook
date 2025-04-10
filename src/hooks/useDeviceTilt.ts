@@ -42,7 +42,7 @@ const useDeviceTilt = ({ maxTilt = 40, isMobile, isIOS }: UseDeviceTiltOptions) 
             if (!isMobile) return;
             window.removeEventListener('deviceorientation', handleOrientation);
         };
-    }, [ref.current, maxTilt, isMobile]);
+    }, [ref.current, maxTilt, isMobile, isIOS]);
 
     return { ref };
 };
