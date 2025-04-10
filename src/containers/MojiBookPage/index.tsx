@@ -6,10 +6,10 @@ import InteractiveBook from '@/components/InteractiveBook';
 import FlippingBook from '@/components/FlippingBook';
 import useDeviceTilt from '@/hooks/useDeviceTilt';
 
-const MojiBook = ({ isMobile }: { isMobile: boolean }) => {
+const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) => {
     const { mutateAsync: getMojiMessage, data: message } = useMojiMessage();
     const [bookOpen, setBookOpen] = useState(false);
-    const { ref: bookRef } = useDeviceTilt({ maxTilt: 40, isMobile });
+    const { ref: bookRef } = useDeviceTilt({ maxTilt: 40, isMobile, isIOS });
 
     const handleBookClick = useCallback(() => {
         setBookOpen(true);

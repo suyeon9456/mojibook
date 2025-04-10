@@ -2,10 +2,11 @@ import { useEffect, useRef } from 'react';
 
 interface UseDeviceTiltOptions {
     isMobile: boolean;
+    isIOS: boolean;
     maxTilt?: number;
 }
 
-const useDeviceTilt = ({ maxTilt = 40, isMobile }: UseDeviceTiltOptions) => {
+const useDeviceTilt = ({ maxTilt = 40, isMobile, isIOS }: UseDeviceTiltOptions) => {
     const ref = useRef<HTMLDivElement | HTMLElement | null>(null);
     useEffect(() => {
         if (!isMobile) return;
@@ -20,7 +21,22 @@ const useDeviceTilt = ({ maxTilt = 40, isMobile }: UseDeviceTiltOptions) => {
             ref.current.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         };
 
-        window.addEventListener('deviceorientation', handleOrientation, true);
+        const requestPermission = async () => {
+            if (isIOS === true) {
+                try {
+                    const response = await (DeviceOrientationEvent as any).requestPermission();
+                    if (response === 'granted') {
+                        window.addEventListener('deviceorientation', handleOrientation, true);
+                    }
+                } catch (err) {
+                    console.error('IOS Device orientation permission denied:', err);
+                }
+            } else {
+                window.addEventListener('deviceorientation', handleOrientation, true);
+            }
+        };
+
+        requestPermission();
 
         return () => {
             if (!isMobile) return;
