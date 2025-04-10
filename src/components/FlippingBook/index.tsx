@@ -4,13 +4,16 @@ import { useCallback, useMemo, useState } from 'react';
 import ZoomPage from '@/components/FlippingBook/page/ZoomPage';
 import Pages from './page/Pages';
 import BookCoverInner from '../common/Book/BookCoverInner';
-
+import styles from './book.module.css';
+import classNames from 'classnames';
+import { useMediaQuery } from 'react-responsive';
 interface FlippingBookProps {
     getMojiMessage: () => void;
     message: string;
 }
 
 const FlippingBook = ({ getMojiMessage, message }: FlippingBookProps) => {
+    const isSmallScreen = useMediaQuery({ maxWidth: 800 });
     const [currentStep, setCurrentStep] = useState<'closed' | 'zoomed'>('closed');
     const pages = useMemo(() => Array(8).fill(0), []);
 
@@ -47,10 +50,21 @@ const FlippingBook = ({ getMojiMessage, message }: FlippingBookProps) => {
     const CurrentBookView = viewConfig[currentStep];
 
     return (
-        <motion.div className="relative w-[800px] h-[500px] perspective-[800px]">
-            <BookCoverInner className="absolute top-0 left-0" />
+        <motion.div
+            className={classNames(
+                'relative h-[500px] perspective-[800px]',
+                isSmallScreen && currentStep === 'zoomed' ? 'w-[100vw]' : 'w-[800px]',
+                styles.flippingBook,
+            )}
+        >
+            <BookCoverInner
+                className={classNames(
+                    'absolute top-0 left-0',
+                    isSmallScreen && currentStep === 'zoomed' ? 'hidden' : '',
+                )}
+            />
             {CurrentBookView}
-            <BookCoverInner />
+            <BookCoverInner className={isSmallScreen && currentStep === 'zoomed' ? 'hidden' : ''} />
         </motion.div>
     );
 };
