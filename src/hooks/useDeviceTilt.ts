@@ -6,6 +6,11 @@ interface UseDeviceTiltOptions {
     maxTilt?: number;
 }
 
+// Define the type for the DeviceOrientationEvent constructor with the optional static method
+type DeviceOrientationEventConstructorWithPermission = typeof DeviceOrientationEvent & {
+    requestPermission?: () => Promise<'granted' | 'denied'>;
+};
+
 const useDeviceTilt = ({ maxTilt = 40, isMobile, isIOS }: UseDeviceTiltOptions) => {
     const ref = useRef<HTMLDivElement | HTMLElement | null>(null);
     useEffect(() => {
@@ -23,13 +28,19 @@ const useDeviceTilt = ({ maxTilt = 40, isMobile, isIOS }: UseDeviceTiltOptions) 
 
         const requestPermission = async () => {
             if (isIOS === true) {
-                try {
-                    const response = await (DeviceOrientationEvent as any).requestPermission();
-                    if (response === 'granted') {
-                        window.addEventListener('deviceorientation', handleOrientation, true);
+                const eventConstructor =
+                    DeviceOrientationEvent as DeviceOrientationEventConstructorWithPermission;
+                if (typeof eventConstructor.requestPermission === 'function') {
+                    try {
+                        const response = await eventConstructor.requestPermission();
+                        if (response === 'granted') {
+                            window.addEventListener('deviceorientation', handleOrientation, true);
+                        }
+                    } catch (err) {
+                        console.error('IOS Device orientation permission denied:', err);
                     }
-                } catch (err) {
-                    console.error('IOS Device orientation permission denied:', err);
+                } else {
+                    window.addEventListener('deviceorientation', handleOrientation, true);
                 }
             } else {
                 window.addEventListener('deviceorientation', handleOrientation, true);
