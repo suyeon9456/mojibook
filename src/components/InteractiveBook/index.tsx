@@ -14,7 +14,7 @@ const InteractiveBook = ({
     handleBookClick: () => void;
     isMobile: boolean;
 }) => {
-    const isSmallScreen = useMediaQuery({ maxWidth: 768 });
+    const isSmallScreen = useMediaQuery({ maxWidth: 800 });
     const x = useMotionValue(0);
     const y = useMotionValue(0);
     const [isHovering, setIsHovering] = useState(false);
