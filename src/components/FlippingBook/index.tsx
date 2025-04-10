@@ -4,7 +4,6 @@ import { useCallback, useMemo, useState } from 'react';
 import ZoomPage from '@/components/FlippingBook/page/ZoomPage';
 import Pages from './page/Pages';
 import BookCoverInner from '../common/Book/BookCoverInner';
-import styles from './book.module.css';
 import classNames from 'classnames';
 import { useMediaQuery } from 'react-responsive';
 interface FlippingBookProps {
@@ -54,7 +53,6 @@ const FlippingBook = ({ getMojiMessage, message }: FlippingBookProps) => {
             className={classNames(
                 'relative h-[500px] perspective-[800px]',
                 isSmallScreen && currentStep === 'zoomed' ? 'w-[100vw]' : 'w-[800px]',
-                styles.flippingBook,
             )}
         >
             <BookCoverInner
