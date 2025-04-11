@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useMojiMessage from '@/app/hooks/api/useMojiMessage';
 import InteractiveBook from '@/components/InteractiveBook';
 import FlippingBook from '@/components/FlippingBook';
@@ -9,10 +9,15 @@ import useDeviceTilt from '@/hooks/useDeviceTilt';
 const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) => {
     const { mutateAsync: getMojiMessage, data: message } = useMojiMessage();
     const [bookOpen, setBookOpen] = useState(false);
-    const { ref: bookRef } = useDeviceTilt({ maxTilt: 40, isMobile, isIOS });
+    const { ref: bookRef, requestPermission } = useDeviceTilt({ maxTilt: 40, isMobile, isIOS });
 
     const handleBookClick = useCallback(() => {
         setBookOpen(true);
+    }, []);
+
+    useEffect(() => {
+        if (isIOS === false) return;
+        requestPermission();
     }, []);
 
     return (
@@ -20,11 +25,13 @@ const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) =>
             {bookOpen ? (
                 <FlippingBook getMojiMessage={getMojiMessage} message={message ?? ''} />
             ) : (
-                <InteractiveBook
-                    bookRef={bookRef as React.RefObject<HTMLDivElement>}
-                    handleBookClick={handleBookClick}
-                    isMobile={isMobile}
-                />
+                <>
+                    <InteractiveBook
+                        bookRef={bookRef as React.RefObject<HTMLDivElement>}
+                        handleBookClick={handleBookClick}
+                        isMobile={isMobile}
+                    />
+                </>
             )}
         </div>
     );
