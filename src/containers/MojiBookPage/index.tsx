@@ -18,7 +18,7 @@ const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) =>
     useEffect(() => {
         if (isIOS === false) return;
         requestPermission();
-    }, []);
+    }, [isIOS]);
 
     return (
         <div>
