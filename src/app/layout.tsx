@@ -32,7 +32,16 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+            <body
+                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+                style={{
+                    backgroundImage: "url('/images/bg1.png')",
+                    backgroundSize: '400px',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'repeat',
+                    backgroundAttachment: 'fixed',
+                }}
+            >
                 <QueryProvider>{children}</QueryProvider>
             </body>
         </html>
