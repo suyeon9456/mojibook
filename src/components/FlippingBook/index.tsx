@@ -6,12 +6,14 @@ import Pages from './page/Pages';
 import BookCoverInner from '../common/Book/BookCoverInner';
 import classNames from 'classnames';
 import { useMediaQuery } from 'react-responsive';
+import LoadingIndicator from '../common/LoadingIndicator';
 interface FlippingBookProps {
     getMojiMessage: () => void;
     message: string;
+    isLoading: boolean;
 }
 
-const FlippingBook = ({ getMojiMessage, message }: FlippingBookProps) => {
+const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps) => {
     const isSmallScreen = useMediaQuery({ maxWidth: 800 });
     const [currentStep, setCurrentStep] = useState<'closed' | 'zoomed'>('closed');
     const pages = useMemo(() => Array(8).fill(0), []);
@@ -19,8 +21,8 @@ const FlippingBook = ({ getMojiMessage, message }: FlippingBookProps) => {
     const handleAnimationComplete = useCallback(
         async (index: number) => {
             if (index !== pages.length - 1) return;
-            await getMojiMessage();
             setCurrentStep('zoomed');
+            await getMojiMessage();
         },
         [getMojiMessage],
     );
@@ -62,6 +64,7 @@ const FlippingBook = ({ getMojiMessage, message }: FlippingBookProps) => {
                 )}
             />
             {CurrentBookView}
+            {isLoading && <LoadingIndicator />}
             <BookCoverInner className={isSmallScreen && currentStep === 'zoomed' ? 'hidden' : ''} />
         </motion.div>
     );

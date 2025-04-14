@@ -6,7 +6,11 @@ import InteractiveBook from '@/components/InteractiveBook';
 import FlippingBook from '@/components/FlippingBook';
 
 const MojiBook = ({ isMobile }: { isMobile: boolean }) => {
-    const { mutateAsync: getMojiMessage, data: message } = useMojiMessage();
+    const {
+        data: message,
+        isTransitioning,
+        mutateWithTransition: getMojiMessage,
+    } = useMojiMessage();
     const [bookOpen, setBookOpen] = useState(false);
 
     const handleBookClick = useCallback(() => {
@@ -16,7 +20,11 @@ const MojiBook = ({ isMobile }: { isMobile: boolean }) => {
     return (
         <div>
             {bookOpen ? (
-                <FlippingBook getMojiMessage={getMojiMessage} message={message ?? ''} />
+                <FlippingBook
+                    getMojiMessage={getMojiMessage}
+                    message={message ?? ''}
+                    isLoading={isTransitioning}
+                />
             ) : (
                 <InteractiveBook handleBookClick={handleBookClick} isMobile={isMobile} />
             )}
