@@ -15,7 +15,6 @@ body {
     background-repeat: repeat;
     background-attachment: fixed;
     overflow-y: hidden;
-    height: 100vh;
 }
 
 body::-webkit-scrollbar {
