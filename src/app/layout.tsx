@@ -24,6 +24,15 @@ export const metadata: Metadata = {
     other: {
         'Content-Security-Policy': 'upgrade-insecure-requests',
     },
+    openGraph: {
+        title: 'MOJI BOOK',
+        description: '무엇이든 대답해주는 모지북',
+        images: [
+            {
+                url: '/images/og-image.png',
+            },
+        ],
+    },
 };
 export default function RootLayout({
     children,
