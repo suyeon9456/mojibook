@@ -43,9 +43,9 @@ const InteractiveBook = ({
                         : 'scale-80',
                 )}
                 onClick={handleBookClick}
-                {...(isMobile || isSmallScreen
-                    ? {}
-                    : { style: { rotateX, rotateY, transformStyle: 'preserve-3d' } })}
+                // {...(isMobile || isSmallScreen
+                //     ? {}
+                //     : { style: { rotateX, rotateY, transformStyle: 'preserve-3d' } })}
                 {...(isMobile
                     ? {
                           onTouchStart: () => setIsHovering(true),
