@@ -10,7 +10,7 @@ type DeviceOrientationEventConstructorWithPermission = typeof DeviceOrientationE
     requestPermission?: () => Promise<'granted' | 'denied'>;
 };
 
-const useDeviceTilt = ({ maxTilt = 80, isMobile, isIOS }: UseDeviceTiltOptions) => {
+const useDeviceTilt = ({ maxTilt = 50, isMobile, isIOS }: UseDeviceTiltOptions) => {
     const ref = useRef<HTMLDivElement | HTMLElement | null>(null);
 
     const handleOrientation = (event: DeviceOrientationEvent) => {
