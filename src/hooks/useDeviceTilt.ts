@@ -17,7 +17,7 @@ const useDeviceTilt = ({ maxTilt = 50, isMobile, isIOS }: UseDeviceTiltOptions) 
     const ALPHA = 0.1;
 
     const handleOrientation = (event: DeviceOrientationEvent) => {
-        let { beta, gamma } = event;
+        const { beta, gamma } = event;
 
         if (!ref.current || beta === null || gamma === null) return;
 
