@@ -22,6 +22,11 @@ const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) =>
                 <FlippingBook getMojiMessage={getMojiMessage} message={message ?? ''} />
             ) : (
                 <div className="relative">
+                    <InteractiveBook
+                        bookRef={bookRef as React.RefObject<HTMLDivElement>}
+                        handleBookClick={handleBookClick}
+                        isMobile={isMobile}
+                    />
                     {isIOS && isMobile && (
                         <Button
                             label="센서 허용하기"
@@ -29,11 +34,6 @@ const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) =>
                             onClick={requestPermission}
                         />
                     )}
-                    <InteractiveBook
-                        bookRef={bookRef as React.RefObject<HTMLDivElement>}
-                        handleBookClick={handleBookClick}
-                        isMobile={isMobile}
-                    />
                 </div>
             )}
         </div>
