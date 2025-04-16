@@ -45,7 +45,7 @@ const InteractiveBook = ({ handleBookClick, isMobile, bookRef }: InteractiveBook
                 )}
                 onClick={handleBookClick}
                 {...(isMobile || isSmallScreen
-                    ? {}
+                    ? { style: { transformStyle: 'preserve-3d' } }
                     : { style: { rotateX, rotateY, transformStyle: 'preserve-3d' } })}
                 {...(isMobile
                     ? {
