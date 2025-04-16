@@ -3,7 +3,7 @@ import * as motion from 'motion/react-client';
 const LoadingIndicator = () => {
     return (
         <motion.div
-            className="absolute top-[50%] left-[50%] w-full h-full flex justify-center items-center z-100"
+            className="absolute top-[calc(50%-10px)] left-[calc(50%-10px)] w-full h-full flex justify-center items-center z-100"
             animate={{
                 scale: [1, 2, 2, 1, 1],
                 rotate: [0, 0, 180, 180, 0],
