@@ -1,12 +1,14 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import useMojiMessage from '@/app/hooks/api/useMojiMessage';
 import InteractiveBook from '@/components/InteractiveBook';
 import FlippingBook from '@/components/FlippingBook';
 import useDeviceTilt from '@/hooks/useDeviceTilt';
+import Button from '@/components/common/Button';
 
 const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) => {
+    console.log('🚀 ~ MojiBook ~ isIOS:', isIOS);
     const { mutateAsync: getMojiMessage, data: message } = useMojiMessage();
     const [bookOpen, setBookOpen] = useState(false);
     const { ref: bookRef, requestPermission } = useDeviceTilt({ maxTilt: 40, isMobile, isIOS });
@@ -14,11 +16,6 @@ const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) =>
     const handleBookClick = useCallback(() => {
         setBookOpen(true);
     }, []);
-
-    useEffect(() => {
-        if (isIOS === false) return;
-        requestPermission();
-    }, [isIOS]);
 
     return (
         <div>
@@ -31,6 +28,7 @@ const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) =>
                         handleBookClick={handleBookClick}
                         isMobile={isMobile}
                     />
+                    <Button onClick={() => requestPermission()} />
                 </>
             )}
         </div>
