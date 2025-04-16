@@ -4,6 +4,7 @@ const config: Config = {
     theme: {
         extend: {
             fontFamily: {
+                pretendard: ['var(--font-pretendard)'],
                 sans: ['Pretendard', 'sans-serif'],
             },
         },
