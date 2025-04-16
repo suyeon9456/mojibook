@@ -7,13 +7,13 @@ import InteractionIndicator from '../common/InteractionIndicator';
 import { useMediaQuery } from 'react-responsive';
 import classNames from 'classnames';
 
-const InteractiveBook = ({
-    handleBookClick,
-    isMobile,
-}: {
+interface InteractiveBookProps {
     handleBookClick: () => void;
     isMobile: boolean;
-}) => {
+    bookRef: React.RefObject<HTMLDivElement | null>;
+}
+
+const InteractiveBook = ({ handleBookClick, isMobile, bookRef }: InteractiveBookProps) => {
     const isSmallScreen = useMediaQuery({ maxWidth: 800 });
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -36,6 +36,7 @@ const InteractiveBook = ({
     return (
         <div style={{ perspective: '1200px' }}>
             <motion.div
+                ref={bookRef}
                 className={classNames(
                     'w-[400px] h-[500px] relative cursor-pointer flex items-center justify-center my-auto',
                     isMobile || isSmallScreen
@@ -44,7 +45,12 @@ const InteractiveBook = ({
                 )}
                 onClick={handleBookClick}
                 {...(isMobile || isSmallScreen
-                    ? {}
+                    ? {
+                          style: {
+                              transformStyle: 'preserve-3d',
+                              transition: 'transform 0.1s ease-out',
+                          },
+                      }
                     : { style: { rotateX, rotateY, transformStyle: 'preserve-3d' } })}
                 {...(isMobile
                     ? {
