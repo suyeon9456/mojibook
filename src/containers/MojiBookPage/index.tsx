@@ -22,7 +22,7 @@ const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) =>
                 <FlippingBook getMojiMessage={getMojiMessage} message={message ?? ''} />
             ) : (
                 <div className="relative">
-                    {isIOS && (
+                    {isIOS && isMobile && (
                         <Button
                             label="센서 허용하기"
                             className="absolute bottom-[0] left-[calc(50%-53px)] opacity-[0.4]"
