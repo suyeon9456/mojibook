@@ -8,7 +8,11 @@ import useDeviceTilt from '@/hooks/useDeviceTilt';
 import Button from '@/components/common/Button';
 
 const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) => {
-    const { mutateAsync: getMojiMessage, data: message } = useMojiMessage();
+    const {
+        data: message,
+        isTransitioning,
+        mutateWithTransition: getMojiMessage,
+    } = useMojiMessage();
     const [bookOpen, setBookOpen] = useState(false);
     const { ref: bookRef, requestPermission } = useDeviceTilt({ maxTilt: 40, isMobile, isIOS });
 
@@ -19,7 +23,11 @@ const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) =>
     return (
         <div>
             {bookOpen ? (
-                <FlippingBook getMojiMessage={getMojiMessage} message={message ?? ''} />
+                <FlippingBook
+                    getMojiMessage={getMojiMessage}
+                    message={message ?? ''}
+                    isLoading={isTransitioning}
+                />
             ) : (
                 <div className="relative">
                     <InteractiveBook
