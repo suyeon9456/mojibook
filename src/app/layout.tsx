@@ -1,16 +1,14 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import QueryProvider from '@/providers/QueryProvider';
+import localFont from 'next/font/local';
+import classNames from 'classnames';
 
-const geistSans = Geist({
-    variable: '--font-geist-sans',
-    subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-    variable: '--font-geist-mono',
-    subsets: ['latin'],
+const pretendard = localFont({
+    src: '../../public/fonts/Pretendard/PretendardVariable.woff2',
+    display: 'swap',
+    weight: '45 920',
+    variable: '--font-pretendard',
 });
 
 export const metadata: Metadata = {
@@ -41,7 +39,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+            <head>
+                <link rel="preload" href="/images/bg1.png" as="image" />
+            </head>
+            <body className={classNames(pretendard.variable, 'font-pretendard')}>
                 <QueryProvider>{children}</QueryProvider>
             </body>
         </html>
