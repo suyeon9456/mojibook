@@ -4,7 +4,7 @@ const Book = () => (
     <>
         <BookBackCover />
         {/* Book inner */}
-        <div className="absolute inset-0 translate-x-[134px] translate-y-[8px] translate-z-[-44px] w-[252px] h-[476px] bg-yellow-100 rounded-[2%] shadow-inner [transform-style:preserve-3d]" />
+        <div className="absolute inset-0 translate-x-[5px] translate-y-[8px] translate-z-[-44px] w-[382px] h-[476px] bg-yellow-100 rounded-[2%] shadow-inner [transform-style:preserve-3d]" />
         <BookCoverOuter />
         {/* Book side */}
         <div className="absolute h-full left-0 w-[50px] bg-yellow-400 origin-left rotate-y-90 rounded-sm" />
