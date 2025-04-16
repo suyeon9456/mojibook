@@ -42,7 +42,7 @@ export default function RootLayout({
             <head>
                 <link rel="preload" href="/images/bg1.png" as="image" />
             </head>
-            <body className={classNames(pretendard.variable, 'antialiased')}>
+            <body className={classNames(pretendard.variable, 'font-pretendard')}>
                 <QueryProvider>{children}</QueryProvider>
             </body>
         </html>
