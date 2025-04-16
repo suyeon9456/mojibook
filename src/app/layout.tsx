@@ -39,14 +39,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body
-                className={classNames(pretendard.variable, 'antialiased')}
-                style={{
-                    backgroundImage: 'url(/images/bg1.png)',
-                    backgroundSize: '400px',
-                    backgroundPosition: 'center',
-                }}
-            >
+            <head>
+                <link rel="preload" href="/images/bg1.png" as="image" />
+            </head>
+            <body className={classNames(pretendard.variable, 'antialiased')}>
                 <QueryProvider>{children}</QueryProvider>
             </body>
         </html>

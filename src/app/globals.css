@@ -9,11 +9,12 @@ body {
     font-family: 'Pretendard', sans-serif;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    /* background-image: url('/images/bg1.png');
+    background-image: url('/images/bg1.png');
     background-size: 400px;
     background-position: center;
     background-repeat: repeat;
-    background-attachment: fixed; */
+    background-attachment: fixed;
+    background-color: #061c2b;
     overflow-y: hidden;
     max-width: 100%;
     overflow-x: hidden;
