@@ -7,6 +7,7 @@ import BookCoverInner from '../common/Book/BookCoverInner';
 import classNames from 'classnames';
 import { useMediaQuery } from 'react-responsive';
 import LoadingIndicator from '../common/LoadingIndicator';
+import { useRouter } from 'next/navigation';
 interface FlippingBookProps {
     getMojiMessage: () => void;
     message: string;
@@ -14,6 +15,7 @@ interface FlippingBookProps {
 }
 
 const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps) => {
+    const router = useRouter();
     const isSmallScreen = useMediaQuery({ maxWidth: 800 });
     const [currentStep, setCurrentStep] = useState<'closed' | 'zoomed'>('closed');
     const pages = useMemo(() => Array(8).fill(0), []);
@@ -22,9 +24,10 @@ const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps)
         async (index: number) => {
             if (index !== pages.length - 1) return;
             setCurrentStep('zoomed');
+            if (message !== '') return;
             await getMojiMessage();
         },
-        [getMojiMessage],
+        [getMojiMessage, message],
     );
 
     const propsConfig = useMemo(
@@ -35,9 +38,18 @@ const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps)
             },
             zoomed: {
                 message: message || '',
+                actions: [
+                    {
+                        label: '메시지 다시 받기',
+                        buttonType: 'primary' as const,
+                        onClick: () => {
+                            window.location.href = '/';
+                        },
+                    },
+                ],
             },
         }),
-        [pages, handleAnimationComplete, message],
+        [pages, handleAnimationComplete, message, router],
     );
 
     const viewConfig = useMemo(
@@ -64,7 +76,7 @@ const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps)
                 )}
             />
             {CurrentBookView}
-            {isLoading && <LoadingIndicator />}
+            {isLoading && message === '' && <LoadingIndicator />}
             <BookCoverInner className={isSmallScreen && currentStep === 'zoomed' ? 'hidden' : ''} />
         </motion.div>
     );
