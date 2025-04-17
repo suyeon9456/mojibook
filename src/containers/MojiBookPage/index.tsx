@@ -6,13 +6,22 @@ import InteractiveBook from '@/components/InteractiveBook';
 import FlippingBook from '@/components/FlippingBook';
 import useDeviceTilt from '@/hooks/useDeviceTilt';
 import Button from '@/components/common/Button';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) => {
+    const router = useRouter();
+    const searchParams = useSearchParams();
     const {
         data: message,
         isTransitioning,
         mutateWithTransition: getMojiMessage,
-    } = useMojiMessage();
+    } = useMojiMessage({
+        onSuccess: (data) => {
+            const params = new URLSearchParams(searchParams.toString());
+            params.set('message', btoa(encodeURIComponent(data.toString())));
+            router.push(`?${params.toString()}`);
+        },
+    });
     const [bookOpen, setBookOpen] = useState(false);
     const { ref: bookRef, requestPermission } = useDeviceTilt({ maxTilt: 40, isMobile, isIOS });
 

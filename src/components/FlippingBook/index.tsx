@@ -7,6 +7,7 @@ import BookCoverInner from '../common/Book/BookCoverInner';
 import classNames from 'classnames';
 import { useMediaQuery } from 'react-responsive';
 import LoadingIndicator from '../common/LoadingIndicator';
+import { useRouter } from 'next/navigation';
 interface FlippingBookProps {
     getMojiMessage: () => void;
     message: string;
@@ -14,6 +15,7 @@ interface FlippingBookProps {
 }
 
 const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps) => {
+    const router = useRouter();
     const isSmallScreen = useMediaQuery({ maxWidth: 800 });
     const [currentStep, setCurrentStep] = useState<'closed' | 'zoomed'>('closed');
     const pages = useMemo(() => Array(8).fill(0), []);
@@ -35,9 +37,19 @@ const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps)
             },
             zoomed: {
                 message: message || '',
+                actions: [
+                    {
+                        label: '메시지 다시 받기',
+                        buttonType: 'primary' as const,
+                        onClick: () => {
+                            window.location.reload();
+                            router.push('/');
+                        },
+                    },
+                ],
             },
         }),
-        [pages, handleAnimationComplete, message],
+        [pages, handleAnimationComplete, message, router],
     );
 
     const viewConfig = useMemo(
