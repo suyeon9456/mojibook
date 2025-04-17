@@ -24,9 +24,10 @@ const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps)
         async (index: number) => {
             if (index !== pages.length - 1) return;
             setCurrentStep('zoomed');
+            if (message !== '') return;
             await getMojiMessage();
         },
-        [getMojiMessage],
+        [getMojiMessage, message],
     );
 
     const propsConfig = useMemo(
@@ -42,8 +43,7 @@ const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps)
                         label: '메시지 다시 받기',
                         buttonType: 'primary' as const,
                         onClick: () => {
-                            window.location.reload();
-                            router.push('/');
+                            window.location.href = '/';
                         },
                     },
                 ],
@@ -76,7 +76,7 @@ const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps)
                 )}
             />
             {CurrentBookView}
-            {isLoading && <LoadingIndicator />}
+            {isLoading && message === '' && <LoadingIndicator />}
             <BookCoverInner className={isSmallScreen && currentStep === 'zoomed' ? 'hidden' : ''} />
         </motion.div>
     );

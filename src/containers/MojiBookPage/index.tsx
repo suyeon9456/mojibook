@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import useMojiMessage from '@/app/hooks/api/useMojiMessage';
 import InteractiveBook from '@/components/InteractiveBook';
 import FlippingBook from '@/components/FlippingBook';
@@ -22,19 +22,24 @@ const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) =>
             router.push(`?${params.toString()}`);
         },
     });
-    const [bookOpen, setBookOpen] = useState(false);
+    const [bookOpen, setBookOpen] = useState(searchParams.get('message') != null);
     const { ref: bookRef, requestPermission } = useDeviceTilt({ maxTilt: 40, isMobile, isIOS });
 
     const handleBookClick = useCallback(() => {
         setBookOpen(true);
     }, []);
 
+    const prevMessage = useMemo(
+        () => decodeURIComponent(atob(searchParams.get('message') ?? '')),
+        [searchParams.get('message')],
+    );
+
     return (
         <div>
             {bookOpen ? (
                 <FlippingBook
                     getMojiMessage={getMojiMessage}
-                    message={message ?? ''}
+                    message={prevMessage || message || ''}
                     isLoading={isTransitioning}
                 />
             ) : (
