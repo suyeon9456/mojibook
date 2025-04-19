@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         description: '무엇이든 대답해주는 모지북',
         images: [
             {
-                url: '/images/og-image.png',
+                url: '/images/og_image.png',
             },
         ],
     },

@@ -8,10 +8,13 @@ import Button from '@/components/common/Button';
 import { useRouter, useSearchParams } from 'next/navigation';
 import useMojiMessage from '@/hooks/api/useMojiMessage';
 import useMessage from '@/hooks/api/useMessage';
+import Script from 'next/script';
 
 const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // NOTICE: 처음 렌더링 될 때 searchParams의 값만 가져옴
     const messageId = useMemo(() => searchParams.get('id'), []);
     const { insertMessage, message: prevMessage } = useMessage({
         messageId: messageId == null ? undefined : Number(messageId),
@@ -37,6 +40,15 @@ const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) =>
 
     return (
         <div>
+            <Script
+                src={`https://t1.kakaocdn.net/kakao_js_sdk/2.7.5/kakao.min.js`}
+                // integrity={process.env.NEXT_PUBLIC_INTEGRITY_VALUE}
+                strategy="lazyOnload"
+                onLoad={() => {
+                    (window as any).Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
+                    console.log((window as any).Kakao.isInitialized());
+                }}
+            />
             {bookOpen ? (
                 <FlippingBook
                     getMojiMessage={getMojiMessage}
