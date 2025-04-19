@@ -13,6 +13,8 @@ import Script from 'next/script';
 const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // NOTICE: 처음 렌더링 될 때 searchParams의 값만 가져옴
     const messageId = useMemo(() => searchParams.get('id'), []);
     const { insertMessage, message: prevMessage } = useMessage({
         messageId: messageId == null ? undefined : Number(messageId),
