@@ -18,12 +18,12 @@ interface UseMessageResult {
 }
 
 const useMessage = ({ messageId }: { messageId?: Message['id'] }): UseMessageResult => {
-    const { data: message, ...query } = useQuery(getMessageOptions(messageId));
-    const { mutateAsync, ...mutation } = useMutation({
+    const { data: message } = useQuery(getMessageOptions(messageId));
+    const { mutateAsync } = useMutation({
         mutationFn: (message: Message['message']) => insertMessage(message),
     });
 
-    return { insertMessage, message };
+    return { insertMessage: mutateAsync, message };
 };
 
 const getMessageOptions = (messageId?: Message['id']) =>
