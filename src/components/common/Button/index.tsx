@@ -1,10 +1,10 @@
 import BasicButton from './BasicButton';
-import ShareButton from './ShareButton';
+import IconButton from './IconButton';
 
 const Button = BasicButton as typeof BasicButton & {
-    Share: typeof ShareButton;
+    Icon: typeof IconButton;
 };
 
-Button.Share = ShareButton;
+Button.Icon = IconButton;
 
 export default Button;
