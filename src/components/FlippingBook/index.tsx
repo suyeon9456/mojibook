@@ -85,7 +85,7 @@ const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps)
                 ],
             },
         }),
-        [pages, handleAnimationComplete, message, router],
+        [pages, handleAnimationComplete, message, router, messageId],
     );
 
     const viewConfig = useMemo(
