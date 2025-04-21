@@ -23,7 +23,7 @@ const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps)
 
     const pages = useMemo(() => Array(8).fill(0), []);
 
-    const messageId = useMemo(() => searchParams.get('id'), [searchParams.get('id')]);
+    const messageId = searchParams.get('id');
 
     const handleAnimationComplete = useCallback(
         async (index: number) => {
@@ -54,7 +54,8 @@ const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps)
                             />
                         ),
                         onClick: () => {
-                            (window as any).Kakao.Share.sendDefault({
+                            if (!window.Kakao || !window.Kakao.Share) return;
+                            window.Kakao.Share.sendDefault({
                                 objectType: 'feed',
                                 content: {
                                     title: '모지북',
