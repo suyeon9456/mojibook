@@ -7,7 +7,8 @@ import BookCoverInner from '../common/Book/BookCoverInner';
 import classNames from 'classnames';
 import { useMediaQuery } from 'react-responsive';
 import LoadingIndicator from '../common/LoadingIndicator';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 interface FlippingBookProps {
     getMojiMessage: () => void;
     message: string;
@@ -16,9 +17,13 @@ interface FlippingBookProps {
 
 const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps) => {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const isSmallScreen = useMediaQuery({ maxWidth: 800 });
     const [currentStep, setCurrentStep] = useState<'closed' | 'zoomed'>('closed');
+
     const pages = useMemo(() => Array(8).fill(0), []);
+
+    const messageId = searchParams.get('id');
 
     const handleAnimationComplete = useCallback(
         async (index: number) => {
@@ -40,8 +45,39 @@ const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps)
                 message: message || '',
                 actions: [
                     {
-                        label: '메시지 다시 받기',
-                        buttonType: 'primary' as const,
+                        icon: (
+                            <Image
+                                src="/icons/talk.svg"
+                                alt="카카오톡 공유 아이콘"
+                                width={16}
+                                height={16}
+                            />
+                        ),
+                        onClick: () => {
+                            if (!window.Kakao || !window.Kakao.Share) return;
+                            window.Kakao.Share.sendDefault({
+                                objectType: 'feed',
+                                content: {
+                                    title: '모지북',
+                                    description: '당신을 위한 한마디를 받아보세요. ✨',
+                                    imageUrl: `${process.env.NEXT_PUBLIC_APP_URL}/images/og_image.png`,
+                                    link: {
+                                        mobileWebUrl: `${process.env.NEXT_PUBLIC_APP_URL}/message?id=${messageId}`,
+                                        webUrl: `${process.env.NEXT_PUBLIC_APP_URL}/message?id=${messageId}`,
+                                    },
+                                },
+                            });
+                        },
+                    },
+                    {
+                        icon: (
+                            <Image
+                                src="/icons/refresh.svg"
+                                alt="메시지 다시 받기 아콘"
+                                width={16}
+                                height={16}
+                            />
+                        ),
                         onClick: () => {
                             window.location.href = '/';
                         },

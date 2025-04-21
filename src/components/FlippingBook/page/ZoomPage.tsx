@@ -3,13 +3,11 @@ import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
 import styles from './page.module.css';
 import Button from '@/components/common/Button';
-import { ComponentProps } from 'react';
 
 interface ZoomPageProps {
     message: string;
     actions?: {
-        label: string;
-        buttonType?: ComponentProps<typeof Button>['type'];
+        icon: React.ReactNode;
         onClick: () => void;
     }[];
 }
@@ -39,11 +37,11 @@ const ZoomPage = ({ message, actions }: ZoomPageProps) => {
             </h2>
             <div className="flex justify-center">
                 {message &&
-                    actions?.map((action) => (
-                        <Button
-                            key={action.label}
-                            type={action.buttonType}
-                            label={action.label}
+                    actions?.map((action, i) => (
+                        <Button.Icon
+                            className="relative"
+                            key={i}
+                            icon={action.icon}
                             onClick={action.onClick}
                         />
                     ))}

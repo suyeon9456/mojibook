@@ -1,5 +1,5 @@
-import { useMutation, UseMutationResult, UseMutationOptions } from '@tanstack/react-query';
 import { fetchMojiMessage } from '@/remotes/chat-direct';
+import { useMutation, UseMutationResult, UseMutationOptions } from '@tanstack/react-query';
 import { useCallback, useTransition } from 'react';
 
 type MojiMessageResponse = string;

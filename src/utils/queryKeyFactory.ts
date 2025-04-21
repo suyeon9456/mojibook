@@ -1,5 +1,6 @@
 export const createQueryKeyFactory = <T extends string>(base: T) => ({
     base: [base] as const,
+    detail: (id?: string | number) => [...base, id] as const,
 });
 
-export const mojiMessageQueryKey = createQueryKeyFactory('moji-message');
+export const messageQueryKey = createQueryKeyFactory('message');
