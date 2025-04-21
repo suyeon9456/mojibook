@@ -1,20 +1,10 @@
-import classNames from 'classnames';
+import BasicButton from './BasicButton';
+import IconButton from './IconButton';
 
-interface ButtonProps {
-    label: string;
-    onClick: () => void;
-    className?: string;
-}
-
-const Button = ({ label, onClick, className }: ButtonProps) => {
-    return (
-        <button
-            className={classNames('p-2 text-[#051d2c] bg-white rounded-md', className)}
-            onClick={onClick}
-        >
-            {label}
-        </button>
-    );
+const Button = BasicButton as typeof BasicButton & {
+    Icon: typeof IconButton;
 };
+
+Button.Icon = IconButton;
 
 export default Button;

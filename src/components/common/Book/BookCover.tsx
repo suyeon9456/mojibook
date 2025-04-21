@@ -2,7 +2,7 @@ export const BookCoverOuter = () => {
     return (
         <>
             <div
-                className="absolute inset-0 bg-yellow-300 rounded-sm origin-left"
+                className="absolute inset-0 origin-left bg-yellow-300 rounded-sm"
                 style={{
                     transformStyle: 'preserve-3d',
                     backfaceVisibility: 'hidden',
@@ -13,11 +13,11 @@ export const BookCoverOuter = () => {
                     <h3 className="text-black text-[36px] font-semibold leading-tight">
                         MOJI BOOK
                     </h3>
-                    <p className="text-black text-sm opacity-70 font-semibold">yeonfuzoom</p>
+                    <p className="text-sm font-semibold text-black opacity-70">ypeuzoom</p>
                 </div>
 
                 <div
-                    className="absolute inset-0 mix-blend-multiply opacity-30 rounded-sm"
+                    className="absolute inset-0 rounded-sm mix-blend-multiply opacity-30"
                     style={{
                         backgroundImage: `radial-gradient(rgba(0,0,0,0.15) 1px, transparent 0.5px), url('/images/ellipse.svg')`,
                         backgroundSize: `8px 8px, auto`,
@@ -28,7 +28,7 @@ export const BookCoverOuter = () => {
             </div>
             {/* Book spine */}
             <div
-                className="absolute top-0 left-0 h-full w-9 bg-yellow-300 rounded-l-sm"
+                className="absolute top-0 left-0 h-full bg-yellow-300 rounded-l-sm w-9"
                 style={{ transformStyle: 'preserve-3d' }}
             />
             {/* Book spine shadow */}
