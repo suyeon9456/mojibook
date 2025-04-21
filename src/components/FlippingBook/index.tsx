@@ -62,8 +62,8 @@ const FlippingBook = ({ getMojiMessage, message, isLoading }: FlippingBookProps)
                                     description: '당신을 위한 한마디를 받아보세요. ✨',
                                     imageUrl: `${process.env.NEXT_PUBLIC_APP_URL}/images/og_image.png`,
                                     link: {
-                                        mobileWebUrl: `${process.env.NEXT_PUBLIC_APP_URL}/message?id=${messageId}`,
-                                        webUrl: `${process.env.NEXT_PUBLIC_APP_URL}/message?id=${messageId}`,
+                                        mobileWebUrl: `${process.env.NEXT_PUBLIC_APP_URL}?id=${messageId}`,
+                                        webUrl: `${process.env.NEXT_PUBLIC_APP_URL}?id=${messageId}`,
                                     },
                                 },
                             });
