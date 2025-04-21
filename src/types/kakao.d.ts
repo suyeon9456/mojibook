@@ -12,7 +12,7 @@ declare namespace Kakao {
         }
 
         interface ApiResponse {
-            [key: string]: any;
+            [key: string]: unknown;
         } // api responses
 
         function cleanup(): void;
@@ -29,7 +29,7 @@ declare namespace Kakao {
             url: string; // Kakao REST API urls
             data?:
                 | {
-                      [key: string]: any;
+                      [key: string]: unknown;
                   }
                 | undefined;
             files?: FileList | File[] | Blob[] | undefined;
@@ -47,7 +47,7 @@ declare namespace Kakao {
             status: 'connected' | 'not_connected';
             user?:
                 | {
-                      [key: string]: any;
+                      [key: string]: unknown;
                   }
                 | undefined;
         }
@@ -165,7 +165,7 @@ declare namespace Kakao {
     }
 
     namespace Share {
-        type LinkCallback = (...args: any[]) => any;
+        type LinkCallback = (...args: unknown[]) => unknown;
 
         interface ButtonObject {
             title: string;
@@ -197,7 +197,7 @@ declare namespace Kakao {
             callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
-                      [key: string]: any;
+                      [key: string]: unknown;
                   }
                 | string
                 | undefined; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
@@ -270,14 +270,14 @@ declare namespace Kakao {
             templateId: number;
             templateArgs?:
                 | {
-                      [key: string]: any;
+                      [key: string]: unknown;
                   }
                 | undefined;
             installTalk?: boolean | undefined; // default false
             callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
-                      [key: string]: any;
+                      [key: string]: unknown;
                   }
                 | string
                 | undefined; // reference https://developers.kakao.com/docs/latest/ko/message/js#set-kakaolink-callback
@@ -295,14 +295,14 @@ declare namespace Kakao {
             templateId?: number | undefined;
             templateArgs?:
                 | {
-                      [key: string]: any;
+                      [key: string]: unknown;
                   }
                 | undefined;
             installTalk?: boolean | undefined; // default false
             callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
-                      [key: string]: any;
+                      [key: string]: unknown;
                   }
                 | string
                 | undefined;
@@ -315,13 +315,13 @@ declare namespace Kakao {
         function sendCustom(settings: {
             templateId: number;
             templateArgs: {
-                [key: string]: any;
+                [key: string]: unknown;
             };
             installTalk?: boolean | undefined; // default false
             callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
-                      [key: string]: any;
+                      [key: string]: unknown;
                   }
                 | string
                 | undefined;
@@ -334,14 +334,14 @@ declare namespace Kakao {
             templateId?: number | undefined;
             templateArgs?:
                 | {
-                      [key: string]: any;
+                      [key: string]: unknown;
                   }
                 | undefined;
             installTalk?: boolean | undefined; // default false
             callback?: LinkCallback | undefined;
             serverCallbackArgs?:
                 | {
-                      [key: string]: any;
+                      [key: string]: unknown;
                   }
                 | string
                 | undefined;

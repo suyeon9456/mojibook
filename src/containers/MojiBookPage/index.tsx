@@ -13,8 +13,8 @@ import Script from 'next/script';
 const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) => {
     const router = useRouter();
     const searchParams = useSearchParams();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     // NOTICE: 처음 렌더링 될 때 searchParams의 값만 가져옴
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const messageId = useMemo(() => searchParams.get('id'), []);
     const { insertMessage, message: prevMessage } = useMessage({
         messageId: messageId == null ? undefined : Number(messageId),
@@ -45,8 +45,15 @@ const MojiBook = ({ isMobile, isIOS }: { isMobile: boolean; isIOS: boolean }) =>
                 // integrity={process.env.NEXT_PUBLIC_INTEGRITY_VALUE}
                 strategy="lazyOnload"
                 onLoad={() => {
-                    (window as any).Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
-                    console.log((window as any).Kakao.isInitialized());
+                    const kakaoApiKey = process.env.NEXT_PUBLIC_KAKAO_JS_KEY;
+                    if (kakaoApiKey) {
+                        window.Kakao.init(kakaoApiKey);
+                        console.log('Kakao SDK Initialized:', window.Kakao.isInitialized());
+                    } else {
+                        console.warn(
+                            'Kakao API key is not defined. Skipping Kakao SDK initialization.',
+                        );
+                    }
                 }}
             />
             {bookOpen ? (
