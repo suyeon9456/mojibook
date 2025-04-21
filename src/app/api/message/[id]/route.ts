@@ -1,13 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 
-interface RouteParams {
-    params: {
-        id: string;
-    };
-}
-
-export const GET = async (request: NextRequest, { params }: RouteParams) => {
+export const GET = async (request: NextRequest, { params }: { params: { id: string } }) => {
     const supabase = await createClient();
     const { id } = params;
 
