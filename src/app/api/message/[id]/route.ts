@@ -1,9 +1,12 @@
 import { createClient } from '@/lib/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const GET = async (request: NextRequest, { params }: { params: { id: string } }) => {
+export const GET = async (
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> },
+) => {
     const supabase = await createClient();
-    const { id } = params;
+    const { id } = await params;
 
     if (!id) {
         return NextResponse.json({ error: 'ID is required' }, { status: 400 });
